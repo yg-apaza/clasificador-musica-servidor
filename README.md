@@ -44,7 +44,7 @@ Abrir en un navegador localhost:8051
 
 ## Sitio Web de prueba
 
-Disponible [aquí](clasificador-yga.rhcloud.com)
+Disponible [aquí](http://clasificador-yga.rhcloud.com)
 
 ## Verificar
 
