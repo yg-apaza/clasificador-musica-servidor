@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 import os
 
 
+# Test line ;)
 @app.route('/')
 @app.route('/index')
 def index():
