@@ -5,7 +5,7 @@ var plugins = require("gulp-load-plugins")({
 	replaceString: /\bgulp[\-.]/
 });
 var sh = require('shelljs');
-var dest = "web"
+var dest = "static"
 const spawn = require('child_process').spawn;
 
 /**
