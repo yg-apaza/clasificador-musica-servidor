@@ -1,0 +1,8 @@
+{
+  "name": "clasificador-musica-genero",
+  "dependencies": {
+    "jquery": "2.1.1",
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.6.3"
+  }
+}
