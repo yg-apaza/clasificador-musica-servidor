@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export OPENSHIFT_DATA_DIR=data
+export OPENSHIFT_MYSQL_DB_HOST=localhost
+export OPENSHIFT_MYSQL_DB_PORT=3306
+export MYSQL_USER=root
+export MYSQL_PASSWORD=123456

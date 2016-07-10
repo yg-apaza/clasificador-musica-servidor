@@ -2,12 +2,17 @@ from flask import render_template, request, redirect, url_for
 from app import app
 from app import ALLOWED_EXTENSIONS
 from werkzeug.utils import secure_filename
+from app.dbconnect import conn
 import os
 
 
 @app.route('/')
 @app.route('/index')
 def index():
+    cur = conn.cursor()
+    cur.execute('''SELECT id FROM songs''')
+    rv = cur.fetchall()
+    print str(rv)
     return render_template('index.html')
 
 

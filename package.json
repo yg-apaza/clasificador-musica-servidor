@@ -5,7 +5,9 @@
   "author": "EPIS-UNSA",
   "license": "MIT",
   "scripts": {
-      "start": "OPENSHIFT_DATA_DIR=data python wsgi.py"
+      "start": "npm run start-env && npm run start-py",
+      "start-env": ". ./env",
+      "start-py": "python wsgi.py"
   },
   "dependencies": {
     "path": "^0.12.7",

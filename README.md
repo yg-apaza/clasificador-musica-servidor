@@ -1,6 +1,6 @@
 # Clasificador de musica por género
 
-Módulo Servidor: Sistema de clasificacion de temas musicales en 4 géneros (rock, música clásica, cumbia y salsa) utilizando algoritmo NEAT.
+Módulo Servidor: Sistema de clasificacion de temas musicales en 4 géneros (rock, música clásica, cumbia y salsa) utilizando algoritmo de detección del ritmo.
 
 ![alt tag](screenshot.png)
 

@@ -1,5 +1,8 @@
 *.pyc
+*.log
+*.wav
+*.mp3
+*.au
 bower_components
 node_modules
-*.log
 venv
