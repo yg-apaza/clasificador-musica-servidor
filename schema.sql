@@ -1,4 +1,5 @@
 -- MySQL Workbench Forward Engineering
+DROP DATABASE clasificador;
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -23,6 +24,7 @@ USE `clasificador` ;
 CREATE TABLE IF NOT EXISTS `clasificador`.`songs` (
   `id` INT ZEROFILL NOT NULL AUTO_INCREMENT,
   `filename` VARCHAR(255) NULL,
+  `genre` INT NULL,
   `meanCentroid` DOUBLE NULL,
   `meanRollOff` DOUBLE NULL,
   `meanFlux` DOUBLE NULL,

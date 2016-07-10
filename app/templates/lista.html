@@ -26,20 +26,38 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Audio</th>
+                    <th>Genero</th>
                 </tr>
             </thead>
             <tbody>
+                {% for song in songs %}
                 <tr>
-                    <td>Doe</td>
+                    <td>{{ song['id'] }}</td>
+                    <td>{{ song['filename'] }}</td>
                     <td>
                         <audio controls>
-                            <source src="http://k003.kiwi6.com/hotlink/9q321uzr6w/pop.wav" type="audio/wav">
+                            <source src="/static/media/{{song['filename']}}" type="audio/wav">
                             Tu navegador no soporta elementos de audio
                         </audio>
                     </td>
+                    <td>
+                        {% if song['genre'] == 1 %}
+                            Metal
+                        {% elif song['genre'] == 2 %}
+                            Clásica
+                        {% elif song['genre'] == 3 %}
+                            Pop
+                        {% elif song['genre'] == 4 %}
+                            Hip hop
+                        {% else %}
+                            Desconocido
+                        {% endif %}
+                    </td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

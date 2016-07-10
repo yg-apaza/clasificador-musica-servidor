@@ -5,12 +5,13 @@ from werkzeug.utils import secure_filename
 from app.dbconnect import conn
 import os
 
+cur = conn.cursor()
+
 
 @app.route('/')
 @app.route('/index')
 def index():
-    cur = conn.cursor()
-    cur.execute('''SELECT id FROM songs''')
+    cur.execute("SELECT * FROM songs")
     rv = cur.fetchall()
     print str(rv)
     return render_template('index.html')
@@ -18,14 +19,14 @@ def index():
 
 @app.route('/lista', methods=['GET'])
 def getLista():
-    return render_template('lista.html')
+    cur.execute("SELECT * FROM songs")
+    rv = cur.fetchall()
+    return render_template('lista.html', songs=rv)
 
 
 @app.route('/song/add', methods=['POST'])
 def addSong():
-    '''
     genero = request.form['genero']
-    '''
     if 'archivo' not in request.files:
         print 'No se ha enviado ningun archivo'
         return redirect(url_for('index'))
@@ -37,6 +38,9 @@ def addSong():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         print 'Archivo subido !'
+        cur.execute("INSERT INTO songs (filename, genre) VALUES (%s, %s)",
+                    (file.filename, genero))
+        conn.commit()
         return redirect(url_for('getLista'))
 
 
