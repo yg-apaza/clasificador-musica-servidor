@@ -25,7 +25,7 @@ def getLista():
 
 @app.route('/song/add', methods=['POST'])
 def addSong():
-    genero = request.form['genero']
+    # genero = request.form['genero']
     if 'archivo' not in request.files:
         print 'No se ha enviado ningun archivo'
         return redirect(url_for('index'))

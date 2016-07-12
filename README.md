@@ -15,14 +15,12 @@ Deben estar definidos en el PATH del sistema
 ## Instalacion
 
 - Instalar dependencias globables como superusuario (administrador)
-
 ```bash
 npm install -g bower
 npm install -g gulp
 ```
 
 - Instalar dependencias locales
-
 ```bash
 npm install
 bower install
@@ -30,11 +28,22 @@ bower install
 
 - Instalar dependencias de Python
 ```bash
-pip2 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 - Crear una base de datos 'clasificador' y ejecutar el script schema.sql
 
+- Modificar el archivo settings.json
+
+- Crear un enlace simbólico (symlink) de la carpeta 'data' en 'app/static/media'
+Linux:
+```bash
+ln -sf <ruta_absoluta_app/data> <ruta_absoluta_app/static/media>
+```
+Windows:
+```bash
+MKLINK /j <ruta_absoluta_app/data> <ruta_absoluta_app/static/media>
+```
 ## Ejecucion - Development
 
 - Ejecutar
