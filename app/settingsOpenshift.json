@@ -1,0 +1,22 @@
+{
+    "data_dir": {
+        "type": "env",
+        "value": "OPENSHIFT_DATA_DIR"
+    },
+    "mysql_host": {
+        "type": "env",
+        "value": "OPENSHIFT_MYSQL_DB_HOST"
+    },
+    "mysql_port": {
+        "type": "env",
+        "value": "OPENSHIFT_MYSQL_DB_PORT"
+    },
+    "mysql_user": {
+        "type": "env",
+        "value": "MYSQL_USER"
+    },
+    "mysql_password": {
+        "type": "env",
+        "value": "MYSQL_PASSWORD"
+    }
+}

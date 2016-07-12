@@ -30,17 +30,20 @@ bower install
 
 - Instalar dependencias de Python
 ```bash
-pip2 install -r pybackend/requirements.txt
+pip2 install -r requirements.txt
 ```
+
+- Crear una base de datos 'clasificador' y ejecutar el script schema.sql
 
 ## Ejecucion - Development
 
+- Ejecutar
 ```bash
 gulp copy
 npm start
 ```
 
-Abrir en un navegador localhost:8051
+- Abrir en un navegador localhost:8051
 
 ## Sitio Web de prueba
 

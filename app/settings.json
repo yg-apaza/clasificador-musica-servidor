@@ -1,0 +1,22 @@
+{
+    "data_dir": {
+        "type": "var",
+        "value": "data"
+    },
+    "mysql_host": {
+        "type": "var",
+        "value": "localhost"
+    },
+    "mysql_port": {
+        "type": "var",
+        "value": "3306"
+    },
+    "mysql_user": {
+        "type": "var",
+        "value": "root"
+    },
+    "mysql_password": {
+        "type": "var",
+        "value": "123456"
+    }
+}

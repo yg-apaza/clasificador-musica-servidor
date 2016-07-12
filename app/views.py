@@ -8,16 +8,15 @@ import os
 cur = conn.cursor()
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/add')
 def index():
-    cur.execute("SELECT * FROM songs")
-    rv = cur.fetchall()
-    print str(rv)
+    # cur.execute("SELECT * FROM songs")
+    # rv = cur.fetchall()
+    # print str(rv)
     return render_template('index.html')
 
 
-@app.route('/lista', methods=['GET'])
+@app.route('/', methods=['GET'])
 def getLista():
     cur.execute("SELECT * FROM songs")
     rv = cur.fetchall()
@@ -38,9 +37,11 @@ def addSong():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         print 'Archivo subido !'
-        cur.execute("INSERT INTO songs (filename, genre) VALUES (%s, %s)",
-                    (file.filename, genero))
-        conn.commit()
+
+        # cur.execute("INSERT INTO songs (filename, genre) VALUES (%s, %s)",
+        #           (file.filename, genero))
+        # conn.commit()
+
         return redirect(url_for('getLista'))
 
 

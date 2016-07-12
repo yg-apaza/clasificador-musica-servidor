@@ -1,19 +1,16 @@
 from app import app
 from flask.ext.mysql import MySQL
 from MySQLdb.cursors import DictCursor
-import os
+from app import common
 
 mysql = MySQL(autocommit=True, cursorclass=DictCursor)
 
 # MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = os.environ.get('MYSQL_USER', '')
-app.config['MYSQL_DATABASE_PASSWORD'] = os.environ.get('MYSQL_PASSWORD', '')
+app.config['MYSQL_DATABASE_USER'] = common.load('mysql_user')
+app.config['MYSQL_DATABASE_PASSWORD'] = common.load('mysql_password')
 app.config['MYSQL_DATABASE_DB'] = 'clasificador'
-app.config['MYSQL_DATABASE_HOST'] = os.environ.get('OPENSHIFT_MYSQL_DB_HOST',
-                                                   '')
-app.config['MYSQL_DATABASE_PORT'] = int(os.environ.get(
-                                                    'OPENSHIFT_MYSQL_DB_PORT',
-                                                    ''))
+app.config['MYSQL_DATABASE_HOST'] = common.load('mysql_host')
+app.config['MYSQL_DATABASE_PORT'] = int(common.load('mysql_port'))
 
 mysql.init_app(app)
 
