@@ -11,6 +11,10 @@ Deben estar definidos en el PATH del sistema
 - npm (Node Package Manager) 3.x
 - NodeJS 5.x
 - Python 2.x
+- MySQL
+```bash
+sudo apt-get install libmysqlclient-dev
+```
 
 ## Instalacion
 

@@ -1,8 +1,8 @@
 import scipy.io.wavfile as wav
 import scipy.signal as signal
 import numpy as np
-# from scipy.fftpack import fft
 import stft
+import matplotlib.pyplot as plt
 
 
 class Audio:
@@ -13,6 +13,8 @@ class Audio:
         try:
             self.fs, self.data = wav.read(archivo)
             self.data = self.data/32767.
+            # plt.plot(self.data)
+            # plt.show()
         except Exception:
             self.data = np.array([])
 
@@ -54,5 +56,3 @@ class Audio:
             add = hasta - self.data.size
             hasta = self.data.size
         return (desde, hasta, add)
-
-    
