@@ -19,7 +19,7 @@ for i in range(0, len(rv)):
     dict = common.loadDict(os.path.join(common.load('data_dir'),
                            rv[i]['data']))
     arr = common.featureDictToArray(dict)
-    print(arr.shape)
+    # print(arr.shape)
     inputsTrain[i, :] = arr
     temp = np.zeros(4)
     temp[int(rv[i]['genre']) - 1] = 1
@@ -34,19 +34,19 @@ print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 def eval_fitness(genomes):
     for g in genomes:
         net = nn.create_feed_forward_phenotype(g)
-        print(g)
+        # print(g)
         sum_square_error = 0.0
         i = 0
         for inputs, expected in zip(inputsTrain, outputsTrain):
             # Serial activation propagates
             # the inputs through the entire network.
             output = net.serial_activate(inputs)
-            if(i == 0):
+            # if(i == 0):
                 # print(output)
                 # print(expected)
-                print((output - expected) ** 2)
+                # print((output - expected) ** 2)
             sum_square_error += np.sum((output - expected) ** 2)
-            i += 1
+            # i += 1
         # When the output matches expected for all inputs, fitness will reach
         # its maximum value of 1.0.
         g.fitness = 1 - sum_square_error
@@ -71,4 +71,4 @@ print('\nOutput:')
 winner_net = nn.create_feed_forward_phenotype(winner)
 for inputs, expected in zip(inputsTrain, outputsTrain):
     output = winner_net.serial_activate(inputs)
-    print("expected {0:1.5f} got {1:1.5f}".format(expected, output[0]))
+    print("expected {0:1.5f} got {1:1.5f}".format(expected, output))
