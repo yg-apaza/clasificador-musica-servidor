@@ -1,5 +1,4 @@
 import numpy as np
-import time
 
 ANALYSIS_WINDOW = 512   # Ventana de analisis de 512 muestras
 HOPSIZE = 256
@@ -9,8 +8,6 @@ TEXTURE_WINDOW = 86     # Nro de ventanas de analisis
 def getFeatureVector(audio):
     data = audio.getSTFT(framesize=ANALYSIS_WINDOW, hopsize=HOPSIZE)
     features = np.empty([data.shape[0], 4])
-    start = time.time()
-    print "> Init cron 1"
     for i in range(0, data.shape[0]):
         # Centroide Espectral
         features[i, 0] = getCentroid(data[i])
@@ -26,13 +23,6 @@ def getFeatureVector(audio):
             amp = np.append(amp, np.zeros(add))
         features[i, 3] = getZeroCrossings(amp)
 
-    end = time.time()
-    print ">>>>>>>>>>>>>>>>>>>>>>>> End <<<<<<<<<<<<<<<<<<<<<<<<"
-    print (end - start)
-
-    start = time.time()
-    print "> Init cron 2"
-
     num_texture_windows = int(features.shape[0] / TEXTURE_WINDOW)
     features_mean_std = np.empty([num_texture_windows, 8])
 
@@ -43,8 +33,6 @@ def getFeatureVector(audio):
                      dtype=np.float64)
         features_mean_std[i, [0, 1, 2, 3]] = mean
         features_mean_std[i, [4, 5, 6, 7]] = std
-
-    print features_mean_std
 
     dict = {
         'mean-mean-Centroid': np.mean(features_mean_std[:, 0],
@@ -75,10 +63,6 @@ def getFeatureVector(audio):
                                         dtype=np.float64)
     }
 
-    end = time.time()
-    print ">>>>>>>>>>>>>>>>>>>>>>>> End <<<<<<<<<<<<<<<<<<<<<<<<"
-    print (end - start)
-    
     return dict
 
 
@@ -117,6 +101,5 @@ def getFlux(prev, current):
 def getZeroCrossings(data):
     sum = 0
     for i in range(0, data.size):
-        # print np.sign(data[i])
         sum += np.abs(np.sign(data[i]) - np.sign(data[i - 1]))
     return 0.5 * sum
