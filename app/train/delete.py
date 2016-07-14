@@ -5,7 +5,8 @@ from app.audio import feature
 from app import common
 
 
-a = Audio('/home/yuli/generos/test/clasica/classical.00099.au.wav')
+a = Audio('/home/yuli/generos/test/pop/pop.00080.au.wav',
+          nro_texture_windows=2584, hopsize=256)
 dict = feature.getFeatureVector(a, 512, 256, 86)
 
 arr = common.featureDictToArray(dict)

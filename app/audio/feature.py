@@ -21,14 +21,7 @@ def getFeatureVector(audio, ANALYSIS_WINDOW, HOPSIZE, TEXTURE_WINDOW):
         features[i, 3] = getZeroCrossings(amp)
 
     coef = getMFCC(audio.data, audio.fs, ANALYSIS_WINDOW, HOPSIZE)
-    print ">>>>>>>>> DELETE <<<<<<<<<<<<<"
-    print audio.data.shape
-    print data.shape
-    print features.shape
-    print coef.shape
-    print ">>>>>>>>> DELETE <<<<<<<<<<<<<"
     features = np.append(features, coef, axis=1)
-
     num_texture_windows = int(features.shape[0] / TEXTURE_WINDOW)
     features_mean_std = np.empty([num_texture_windows, 18])
 

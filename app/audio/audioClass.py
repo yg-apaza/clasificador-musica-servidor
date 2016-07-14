@@ -12,6 +12,7 @@ class Audio:
         try:
             self.fs, self.data = wav.read(archivo)
             self.data = self.data/32767.
+
             if(self.data.size > nro_texture_windows * hopsize):
                 self.data = self.data[0:nro_texture_windows * hopsize]
             elif (self.data.size < nro_texture_windows * hopsize):
