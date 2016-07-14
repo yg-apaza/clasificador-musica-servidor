@@ -23,42 +23,54 @@
 
 <body>
     <div class="container">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Audio</th>
-                    <th>Genero</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for song in songs %}
-                <tr>
-                    <td>{{ song['id'] }}</td>
-                    <td>{{ song['filename'] }}</td>
-                    <td>
-                        <audio controls>
-                            <source src="/static/media/{{song['filename']}}" type="audio/wav">Tu navegador no soporta elementos de audio
-                        </audio>
-                    </td>
-                    <td>
-                        {% if song['genre'] == 1 %}
-                            Metal
-                        {% elif song['genre'] == 2 %}
-                            Clásica
-                        {% elif song['genre'] == 3 %}
-                            Pop
-                        {% elif song['genre'] == 4 %}
-                            Hip hop
-                        {% else %}
-                            Desconocido
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="row">
+            <a class="btn btn-primary" href="/agregar" role="button">AGREGAR</a>
+            <a class="btn btn-primary" href="/entrenar" role="button">ENTRENAR</a>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Audio</th>
+                            <th>Genero</th>
+                            <th>Ir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for song in songs %}
+                        <tr>
+                            <td>{{ song['id'] }}</td>
+                            <td>{{ song['filename'] }}</td>
+                            <td>
+                                <audio controls>
+                                    <source src="/static/media/{{song['filename']}}" type="audio/wav">Tu navegador no soporta elementos de audio
+                                </audio>
+                            </td>
+                            <td>
+                                {% if song['genre'] == 1 %}
+                                    Metal
+                                {% elif song['genre'] == 2 %}
+                                    Clásica
+                                {% elif song['genre'] == 3 %}
+                                    Pop
+                                {% elif song['genre'] == 4 %}
+                                    Hip hop
+                                {% else %}
+                                    Desconocido
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a class="btn btn-default" href="/cancion/{{song['id']}}" role="button">Link</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 </html>

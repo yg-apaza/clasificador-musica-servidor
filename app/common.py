@@ -18,3 +18,9 @@ def load(var):
 def saveDict(dict, filename):
     with open(filename, 'w') as fp:
         json.dump(dict, fp)
+
+
+def loadDict(filename):
+    with open(filename) as data_file:
+        data = json.load(data_file)
+    return data

@@ -11,9 +11,9 @@ import os
 cur = conn.cursor()
 
 
-@app.route('/song/add', methods=['GET'])
-def addSongGet():
-    return render_template('addSong.html')
+@app.route('/agregar', methods=['GET'])
+def agregarGet():
+    return render_template('agregar.html')
 
 
 @app.route('/', methods=['GET'])
@@ -23,8 +23,8 @@ def getLista():
     return render_template('lista.html', songs=rv)
 
 
-@app.route('/song/add', methods=['POST'])
-def addSongPost():
+@app.route('/agregar', methods=['POST'])
+def agregarPost():
     genero = int(request.form['genero'])
     if 'archivo' not in request.files:
         print 'No se ha enviado ningun archivo'
@@ -53,6 +53,15 @@ def addSongPost():
         conn.commit()
 
         return redirect(url_for('getLista'))
+
+
+@app.route('/cancion/<id>')
+def mostrarDatos(id):
+    cur.execute("SELECT * FROM songs WHERE id=%s", (id))
+    rv = cur.fetchall()
+    print rv
+    return str(common.loadDict(os.path.join(app.config['UPLOAD_FOLDER'],
+                                            rv[0]['data'])))
 
 
 def allowed_file(filename):
