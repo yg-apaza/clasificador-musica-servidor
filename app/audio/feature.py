@@ -2,12 +2,7 @@ import numpy as np
 from python_speech_features import mfcc
 
 
-ANALYSIS_WINDOW = 512   # Ventana de analisis de 512 muestras
-HOPSIZE = 256
-TEXTURE_WINDOW = 86     # Nro de ventanas de analisis
-
-
-def getFeatureVector(audio):
+def getFeatureVector(audio, ANALYSIS_WINDOW, HOPSIZE, TEXTURE_WINDOW):
     data = audio.getSTFT(framesize=ANALYSIS_WINDOW, hopsize=HOPSIZE)
     features = np.empty([data.shape[0], 4])
     for i in range(0, data.shape[0]):
@@ -25,7 +20,13 @@ def getFeatureVector(audio):
             amp = np.append(amp, np.zeros(add))
         features[i, 3] = getZeroCrossings(amp)
 
-    coef = getMFCC(audio.data, audio.fs)
+    coef = getMFCC(audio.data, audio.fs, ANALYSIS_WINDOW, HOPSIZE)
+    print ">>>>>>>>> DELETE <<<<<<<<<<<<<"
+    print audio.data.shape
+    print data.shape
+    print features.shape
+    print coef.shape
+    print ">>>>>>>>> DELETE <<<<<<<<<<<<<"
     features = np.append(features, coef, axis=1)
 
     num_texture_windows = int(features.shape[0] / TEXTURE_WINDOW)
@@ -113,7 +114,7 @@ def getFeatureVector(audio):
         'std-std-coeficiente5':    np.std(features_mean_std[:, 17],
                                           dtype=np.float64),
     }
-    
+
     return dict
 
 
@@ -156,7 +157,7 @@ def getZeroCrossings(data):
     return 0.5 * sum
 
 
-def getMFCC(data, fs):
+def getMFCC(data, fs, ANALYSIS_WINDOW, HOPSIZE):
     coeficientes = mfcc(signal=data, samplerate=fs,
                         winlen=ANALYSIS_WINDOW*1./fs,
                         winstep=HOPSIZE*1./fs,

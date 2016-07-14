@@ -5,13 +5,18 @@ import stft
 
 
 class Audio:
-    def __init__(self, archivo=''):
+    def __init__(self, archivo='', nro_texture_windows=1, hopsize=256):
         self.filename = archivo
         # convertir al formato estandar wav 22050Hz, 16 bits, 30 segs, mono
         # quitar ruido
         try:
             self.fs, self.data = wav.read(archivo)
             self.data = self.data/32767.
+            if(self.data.size > nro_texture_windows * hopsize):
+                self.data = self.data[0:nro_texture_windows * hopsize]
+            elif (self.data.size < nro_texture_windows * hopsize):
+                add = nro_texture_windows * hopsize - self.data.size
+                self.data = np.append(self.data, np.zeros(add))
         except Exception:
             self.data = np.array([])
 

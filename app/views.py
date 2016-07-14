@@ -9,6 +9,10 @@ from werkzeug.utils import secure_filename
 import os
 
 cur = conn.cursor()
+ANALYSIS_WINDOW = 512   # Ventana de analisis de 512 muestras
+HOPSIZE = 256
+TEXTURE_WINDOW = 86     # Nro de ventanas de analisis
+NRO_TEXTURE_WINDOWS = 2584
 
 
 @app.route('/agregar', methods=['GET'])
@@ -38,10 +42,13 @@ def agregarPost():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         print '> Archivo subido: ' + filename
-        audio = Audio(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        audio = Audio(os.path.join(app.config['UPLOAD_FOLDER'], filename),
+                      nro_texture_windows=NRO_TEXTURE_WINDOWS, hopsize=HOPSIZE)
 
         print '> Extrayendo caracteristicas:' + filename
-        featureVector = feature.getFeatureVector(audio)
+        featureVector = feature.getFeatureVector(audio,
+                                                 ANALYSIS_WINDOW,
+                                                 HOPSIZE, TEXTURE_WINDOW)
         common.saveDict(featureVector,
                         os.path.join(app.config['UPLOAD_FOLDER'],
                                      filename + '.json'))
