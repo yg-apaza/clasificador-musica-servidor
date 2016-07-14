@@ -5,6 +5,7 @@ from neat import nn, population, statistics
 from app.dbconnect import conn
 from app import common
 import numpy as np
+import pickle
 # Network inputs and expected outputs.
 
 cur = conn.cursor()
@@ -36,16 +37,16 @@ def eval_fitness(genomes):
         net = nn.create_feed_forward_phenotype(g)
         # print(g)
         sum_square_error = 0.0
-        i = 0
+        # i = 0
         for inputs, expected in zip(inputsTrain, outputsTrain):
             # Serial activation propagates
             # the inputs through the entire network.
             output = net.serial_activate(inputs)
-            # if(i == 0):
-                # print(output)
-                # print(expected)
-                # print((output - expected) ** 2)
-            sum_square_error += np.sum((output - expected) ** 2)
+            sum_square_error += np.mean((output - expected) ** 2)
+            # print("Output")
+            # print(output)
+            # print(expected)
+            # print("Expected")
             # i += 1
         # When the output matches expected for all inputs, fitness will reach
         # its maximum value of 1.0.
@@ -66,9 +67,17 @@ print('Number of evaluations: {0}'.format(pop.total_evaluations))
 
 # Show output of the most fit genome against training data.
 winner = pop.statistics.best_genome()
+
+pickle.dump(winner, open('/home/yuli/IA2/clasificador/neuralNetwork.p', 'w'))
+# winner2 = pickle.load(open('/home/yuli/IA2/clasificador/save.p', 'r'))
+# print(winner2)
+
 print('\nBest genome:\n{!s}'.format(winner))
 print('\nOutput:')
 winner_net = nn.create_feed_forward_phenotype(winner)
 for inputs, expected in zip(inputsTrain, outputsTrain):
     output = winner_net.serial_activate(inputs)
-    print("expected {0:1.5f} got {1:1.5f}".format(expected, output))
+    # print("Expected")
+    # print(expected)
+    # print("Output")
+    # print(output)
