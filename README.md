@@ -39,6 +39,11 @@ pip install -r requirements.txt
 
 - Modificar el archivo settings.json
 
+- Copiar las librerias a la carpeta static
+```bash
+gulp copy
+```
+
 - Crear un enlace simbólico (symlink) de la carpeta 'data' en 'app/static/media'
 Linux:
 ```bash
@@ -48,11 +53,11 @@ Windows:
 ```bash
 MKLINK /j <ruta_absoluta_app/data> <ruta_absoluta_app/static/media>
 ```
+
 ## Ejecucion - Development
 
 - Ejecutar
 ```bash
-gulp copy
 npm start
 ```
 
