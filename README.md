@@ -58,7 +58,7 @@ MKLINK /j <ruta_absoluta_app/data> <ruta_absoluta_app/static/media>
 
 - Ejecutar
 ```bash
-npm start
+python wsgi.py
 ```
 
 - Abrir en un navegador localhost:8051
