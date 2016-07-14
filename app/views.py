@@ -1,6 +1,9 @@
 from app import app
 from app import ALLOWED_EXTENSIONS
 from app.dbconnect import conn
+from app.audio.audioClass import Audio
+from app.audio import feature
+from app import common
 from flask import render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
@@ -8,12 +11,9 @@ import os
 cur = conn.cursor()
 
 
-@app.route('/add')
-def index():
-    # cur.execute("SELECT * FROM songs")
-    # rv = cur.fetchall()
-    # print str(rv)
-    return render_template('index.html')
+@app.route('/song/add', methods=['GET'])
+def addSongGet():
+    return render_template('addSong.html')
 
 
 @app.route('/', methods=['GET'])
@@ -24,8 +24,8 @@ def getLista():
 
 
 @app.route('/song/add', methods=['POST'])
-def addSong():
-    # genero = request.form['genero']
+def addSongPost():
+    genero = int(request.form['genero'])
     if 'archivo' not in request.files:
         print 'No se ha enviado ningun archivo'
         return redirect(url_for('index'))
@@ -36,11 +36,21 @@ def addSong():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        print 'Archivo subido !'
 
-        # cur.execute("INSERT INTO songs (filename, genre) VALUES (%s, %s)",
-        #           (file.filename, genero))
-        # conn.commit()
+        print '> Archivo subido: ' + filename
+        audio = Audio(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        print '> Extrayendo caracteristicas:' + filename
+        featureVector = feature.getFeatureVector(audio)
+        common.saveDict(featureVector,
+                        os.path.join(app.config['UPLOAD_FOLDER'],
+                                     filename + '.json'))
+        print '> JSON generado: ' + filename + '.json'
+
+        cur.execute(
+            "INSERT INTO songs (filename, genre, data) VALUES (%s, %s, %s)",
+            (filename, genero, filename + '.json'))
+        conn.commit()
 
         return redirect(url_for('getLista'))
 
