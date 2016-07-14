@@ -1,7 +1,7 @@
 from app import app
+from app import common
 from flask.ext.mysql import MySQL
 from MySQLdb.cursors import DictCursor
-from app import common
 
 mysql = MySQL(autocommit=True, cursorclass=DictCursor)
 

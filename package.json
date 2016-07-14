@@ -5,7 +5,7 @@
   "author": "EPIS-UNSA",
   "license": "MIT",
   "scripts": {
-      "start": "python wsgi.py"
+      "start": "python -m wsgi"
   },
   "dependencies": {
     "path": "^0.12.7",

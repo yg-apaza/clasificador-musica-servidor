@@ -13,3 +13,8 @@ def load(var):
         return data[var]['value']
     else:
         return ""
+
+
+def saveDict(dict, filename):
+    with open(filename, 'w') as fp:
+        json.dump(dict, fp)

@@ -1,8 +1,8 @@
-from flask import render_template, request, redirect, url_for
 from app import app
 from app import ALLOWED_EXTENSIONS
-from werkzeug.utils import secure_filename
 from app.dbconnect import conn
+from flask import render_template, request, redirect, url_for
+from werkzeug.utils import secure_filename
 import os
 
 cur = conn.cursor()

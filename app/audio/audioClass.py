@@ -2,7 +2,6 @@ import scipy.io.wavfile as wav
 import scipy.signal as signal
 import numpy as np
 import stft
-import matplotlib.pyplot as plt
 
 
 class Audio:
@@ -43,7 +42,7 @@ class Audio:
                                                      hopsize=hopsize,
                                                      centered=False,
                                                      window=window,
-                                                     halved=False))
+                                                     halved=True))
         return espectograma
 
     def getFrame(self, frame=0, framesize=512, hopsize=256):
