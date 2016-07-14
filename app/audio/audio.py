@@ -13,8 +13,6 @@ class Audio:
         try:
             self.fs, self.data = wav.read(archivo)
             self.data = self.data/32767.
-            # plt.plot(self.data)
-            # plt.show()
         except Exception:
             self.data = np.array([])
 

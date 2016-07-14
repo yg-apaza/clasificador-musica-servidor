@@ -5,6 +5,9 @@
 # import stft
 from audio import Audio
 from feature import getFeatureVector
+import pprint
+
 
 a = Audio(archivo='/home/yuli/pop.wav')
-getFeatureVector(a)
+pp = pprint.PrettyPrinter(indent=4)
+pp.pprint(getFeatureVector(a))
