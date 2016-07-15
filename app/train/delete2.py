@@ -30,7 +30,7 @@ trainer = BackpropTrainer(net, ds)
 trainer.train()
 print "SECOND  ----------------------------------------"
 print net
-ab = Audio('/home/yuli/generos/metal/metal.00015.au.wav',
+ab = Audio('/home/yuli/generos/test/metal/metal.00099.au.wav',
            nro_texture_windows=2584, hopsize=256)
 d = feature.getFeatureVector(ab, 512, 256, 86)
 

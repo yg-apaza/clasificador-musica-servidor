@@ -4,9 +4,11 @@ from app.dbconnect import conn
 from app.audio.audioClass import Audio
 from app.audio import feature
 from app import common
+from app.train import NEAT
 from flask import render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
+import pickle
 
 cur = conn.cursor()
 ANALYSIS_WINDOW = 512   # Ventana de analisis de 512 muestras
@@ -18,6 +20,14 @@ NRO_TEXTURE_WINDOWS = 2584
 @app.route('/agregar', methods=['GET'])
 def agregarGet():
     return render_template('agregar.html')
+
+
+@app.route('/entrenar', methods=['GET'])
+def entrenar():
+    NEAT.entrenar()
+    winner = pickle.load(open(os.path.join(common.load('data_dir'),
+                                           'redNeuronal.p'), 'r'))
+    return str(winner)
 
 
 @app.route('/', methods=['GET'])
@@ -64,7 +74,8 @@ def agregarPost():
 
 @app.route('/cancion/<id>')
 def mostrarDatos(id):
-    cur.execute("SELECT * FROM songs WHERE id=%s", (id))
+    print id
+    cur.execute("SELECT * FROM songs WHERE id=%s", (id,))
     rv = cur.fetchall()
     print rv
     return str(common.loadDict(os.path.join(app.config['UPLOAD_FOLDER'],

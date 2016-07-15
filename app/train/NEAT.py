@@ -1,83 +1,47 @@
-from __future__ import print_function
-
 import os
-from neat import nn, population, statistics
+from neat import nn, population
 from app.dbconnect import conn
 from app import common
 import numpy as np
 import pickle
-# Network inputs and expected outputs.
-
-cur = conn.cursor()
-cur.execute("SELECT * FROM songs")
-rv = cur.fetchall()
-
-inputsTrain = np.empty([len(rv), 36])
-outputsTrain = np.empty([len(rv), 4])
 
 
-for i in range(0, len(rv)):
-    dict = common.loadDict(os.path.join(common.load('data_dir'),
-                           rv[i]['data']))
-    arr = common.featureDictToArray(dict)
-    # print(arr.shape)
-    inputsTrain[i, :] = arr
-    temp = np.zeros(4)
-    temp[int(rv[i]['genre']) - 1] = 1
-    outputsTrain[i, :] = temp
+def entrenar():
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM songs")
+    rv = cur.fetchall()
 
-print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-print(inputsTrain)
-print(outputsTrain)
-print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    inputsTrain = np.empty([len(rv), 36])
+    outputsTrain = np.empty([len(rv), 4])
 
+    def eval_fitness(genomes):
+        for g in genomes:
+            net = nn.create_feed_forward_phenotype(g)
+            sum_square_error = 0.0
+            for inputs, expected in zip(inputsTrain, outputsTrain):
+                # Serial activation propagates
+                # the inputs through the entire network.
+                output = net.serial_activate(inputs)
+                sum_square_error += np.mean((output - expected) ** 2)
+            # When the output matches expected for all inputs,
+            # fitness will reach its maximum value of 1.0.
+            g.fitness = -sum_square_error
 
-def eval_fitness(genomes):
-    for g in genomes:
-        net = nn.create_feed_forward_phenotype(g)
-        # print(g)
-        sum_square_error = 0.0
-        # i = 0
-        for inputs, expected in zip(inputsTrain, outputsTrain):
-            # Serial activation propagates
-            # the inputs through the entire network.
-            output = net.serial_activate(inputs)
-            sum_square_error += np.mean((output - expected) ** 2)
-            # print("Output")
-            # print(output)
-            # print(expected)
-            # print("Expected")
-            # i += 1
-        # When the output matches expected for all inputs, fitness will reach
-        # its maximum value of 1.0.
-        g.fitness = 1 - sum_square_error
+    for i in range(0, len(rv)):
+        dict = common.loadDict(os.path.join(common.load('data_dir'),
+                               rv[i]['data']))
+        arr = common.featureDictToArray(dict)
+        inputsTrain[i, :] = arr
+        temp = np.zeros(4)
+        temp[int(rv[i]['genre']) - 1] = 1
+        outputsTrain[i, :] = temp
 
+    local_dir = os.path.dirname(__file__)
+    config_path = os.path.join(local_dir, 'neuron.config')
+    pop = population.Population(config_path)
+    pop.run(eval_fitness, 300)
 
-local_dir = os.path.dirname(__file__)
-config_path = os.path.join(local_dir, 'neuron.config')
-pop = population.Population(config_path)
-pop.run(eval_fitness, 300)
-
-# Log statistics.
-statistics.save_stats(pop.statistics)
-statistics.save_species_count(pop.statistics)
-statistics.save_species_fitness(pop.statistics)
-
-print('Number of evaluations: {0}'.format(pop.total_evaluations))
-
-# Show output of the most fit genome against training data.
-winner = pop.statistics.best_genome()
-
-pickle.dump(winner, open('/home/yuli/IA2/clasificador/neuralNetwork.p', 'w'))
-# winner2 = pickle.load(open('/home/yuli/IA2/clasificador/save.p', 'r'))
-# print(winner2)
-
-print('\nBest genome:\n{!s}'.format(winner))
-print('\nOutput:')
-winner_net = nn.create_feed_forward_phenotype(winner)
-for inputs, expected in zip(inputsTrain, outputsTrain):
-    output = winner_net.serial_activate(inputs)
-    # print("Expected")
-    # print(expected)
-    # print("Output")
-    # print(output)
+    winner = pop.statistics.best_genome()
+    pickle.dump(winner, open(os.path.join(common.load('data_dir'),
+                             'redNeuronal.p'), 'w'))
+    return winner
