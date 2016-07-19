@@ -23,12 +23,12 @@
 
 <body>
     <div class="container">
+
         <div class="row">
-            <a class="btn btn-primary" href="/agregar" role="button">AGREGAR</a>
-            <a class="btn btn-primary" href="/entrenar" role="button">ENTRENAR</a>
+            <h1 style="font-weight: bold; text-align: center; margin-top: 40px; margin-bottom: 40px">CLASIFICADOR DE MÚSICA</h1>
         </div>
         <div class="row">
-            <div class="col-md-12 col-sm-12">
+            <div class="col-md-9 col-sm-9">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -69,6 +69,24 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Entrenamiento</div>
+                        <div class="panel-body">
+                            <a class="btn btn-success btn-lg btn-block" href="/entrenar" role="button">ENTRENAR</a>
+                        </div>
+                    </div>
+                    <!--div class="panel panel-default">
+                        <div class="panel-heading">Panel Header</div>
+                        <div class="panel-body">Panel Content</div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Panel Header</div>
+                        <div class="panel-body">Panel Content</div>
+                    </div-->
+                </div>
             </div>
         </div>
     </div>

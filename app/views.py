@@ -17,11 +17,6 @@ TEXTURE_WINDOW = 86     # Nro de ventanas de analisis
 NRO_TEXTURE_WINDOWS = 2584
 
 
-@app.route('/agregar', methods=['GET'])
-def agregarGet():
-    return render_template('agregar.html')
-
-
 @app.route('/entrenar', methods=['GET'])
 def entrenar():
     NEAT.entrenar()
@@ -77,7 +72,7 @@ def mostrarDatos(id):
     print id
     cur.execute("SELECT * FROM songs WHERE id=%s", (id,))
     rv = cur.fetchall()
-    print rv
+
     return str(common.loadDict(os.path.join(app.config['UPLOAD_FOLDER'],
                                             rv[0]['data'])))
 
