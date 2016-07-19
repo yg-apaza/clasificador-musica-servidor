@@ -5,7 +5,7 @@ from app.audio import feature
 from app import common
 
 
-a = Audio('/home/yuli/TM.wav',
+a = Audio('/home/yuli/demo.wav',
           nro_texture_windows=2584, hopsize=256)
 dict = feature.getFeatureVector(a, 512, 256, 86)
 

@@ -19,12 +19,8 @@ def entrenar():
             net = nn.create_feed_forward_phenotype(g)
             sum_square_error = 0.0
             for inputs, expected in zip(inputsTrain, outputsTrain):
-                # Serial activation propagates
-                # the inputs through the entire network.
                 output = net.serial_activate(inputs)
                 sum_square_error += np.mean((output - expected) ** 2)
-            # When the output matches expected for all inputs,
-            # fitness will reach its maximum value of 1.0.
             g.fitness = -sum_square_error
 
     for i in range(0, len(rv)):
