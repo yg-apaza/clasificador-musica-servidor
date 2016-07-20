@@ -1,0 +1,16 @@
+web:
+  build: .
+  command: python -m /code/run
+  ports:
+   - "9090:9090"
+  volumes:
+   - .:/code
+  links:
+   - db
+  hostname: myappserver
+db:
+  hostname: mysqlserver
+  image: orchardup/mysql
+  environment:
+     MYSQL_ROOT_PASSWORD: 123456
+     MYSQL_DATABASE: clasificador
