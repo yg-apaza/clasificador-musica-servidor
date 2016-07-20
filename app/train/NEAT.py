@@ -4,6 +4,7 @@ from app.dbconnect import conn
 from app import common
 import numpy as np
 import pickle
+from app.train.reporte import NEATReporter
 
 
 def entrenar():
@@ -35,6 +36,8 @@ def entrenar():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'neuron.config')
     pop = population.Population(config_path)
+    reporte = NEATReporter()
+    pop.add_reporter(reporte)
     pop.run(eval_fitness, 300)
 
     winner = pop.statistics.best_genome()

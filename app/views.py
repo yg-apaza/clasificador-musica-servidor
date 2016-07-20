@@ -8,7 +8,8 @@ from app.train import NEAT
 from flask import render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
-import pickle
+import threading
+
 
 cur = conn.cursor()
 ANALYSIS_WINDOW = 512   # Ventana de analisis de 512 muestras
@@ -17,12 +18,27 @@ TEXTURE_WINDOW = 86     # Nro de ventanas de analisis
 NRO_TEXTURE_WINDOWS = 2584
 
 
+def daemon():
+    NEAT.entrenar()
+
+d = threading.Thread(target=daemon, name='Daemon')
+
 @app.route('/entrenar', methods=['GET'])
 def entrenar():
-    NEAT.entrenar()
-    winner = pickle.load(open(os.path.join(common.load('data_dir'),
-                                           'redNeuronal.p'), 'r'))
-    return str(winner)
+    # NEAT.entrenar()
+    # winner = pickle.load(open(os.path.join(common.load('data_dir'),
+    #                                       'redNeuronal.p'), 'r'))
+    # return str(winner)
+    # NEAT.entrenar()
+    return render_template('entrenamiento.html')
+
+
+@app.route('/entrenar/iniciar', methods=['GET'])
+def iniciar():
+    if(not d.isAlive()):
+        d.setDaemon(True)
+        d.start()
+    return "FIN"
 
 
 @app.route('/', methods=['GET'])
