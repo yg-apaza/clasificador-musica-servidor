@@ -1,7 +1,7 @@
 {
     "data_dir": {
         "type": "var",
-        "value": "app/data"
+        "value": "app/static/media"
     },
     "mysql_host": {
         "type": "var",

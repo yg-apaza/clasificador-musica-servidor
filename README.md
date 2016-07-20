@@ -1,8 +1,6 @@
 # Clasificador de musica por género
 
-Módulo Servidor: Sistema de clasificacion de temas musicales en 4 géneros (rock, música clásica, cumbia y salsa) utilizando algoritmo de detección del ritmo.
 
-![alt tag](screenshot.png)
 
 ## Requerimientos
 
@@ -14,6 +12,7 @@ Deben estar definidos en el PATH del sistema
 - MySQL
 ```bash
 sudo apt-get install libmysqlclient-dev
+sudo apt-get install -y libfreetype6-dev libxft-dev
 ```
 
 ## Instalacion
