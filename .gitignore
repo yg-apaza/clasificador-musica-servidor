@@ -7,4 +7,5 @@ bower_components
 node_modules
 venv
 *.bak
-*.wav.json
+*.json
+*.csv

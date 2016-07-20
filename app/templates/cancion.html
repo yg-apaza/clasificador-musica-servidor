@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Clasificador de musica">
+    <meta name="author" content="UNSA">
+
+    <title>Clasificador de música</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/static/style.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/font-awesome.css" rel="stylesheet" type="text/css">
+    <!-- jQuery -->
+    <script src="/static/vendor/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/vendor/bootstrap.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="header col-md-12">
+        <div class="row">
+            <h1>CLASIFICADOR DE MÚSICA</h1>
+            <h4>Módulo de Entrenamiento</h4>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="cardsong">
+                    <h3>{{song['filename']}}</h3>
+                    <audio controls>
+                        <source src="/static/media/{{song['filename']}}" type="audio/wav">Tu navegador no soporta elementos de audio
+                    </audio>
+
+                    <p>Genero:
+                        {% if song['genre'] == 1 %}
+                            Metal
+                        {% elif song['genre'] == 2 %}
+                            Clásica
+                        {% elif song['genre'] == 3 %}
+                            Pop
+                        {% elif song['genre'] == 4 %}
+                            Hip hop
+                        {% else %}
+                            Desconocido
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <fieldset>
+                    <legend>Características Superficiales:</legend>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#centroide">Centroide</a></li>
+                        <li><a data-toggle="tab" href="#rolloff">RollOff</a></li>
+                        <li><a data-toggle="tab" href="#flux">Flux</a></li>
+                        <li><a data-toggle="tab" href="#zero">Zero Crossings</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="centroide" class="tab-pane fade in active">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>mean-mean</th>
+                                            <th>mean-std</th>
+                                            <th>std-mean</th>
+                                            <th>std-std</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data['mean-mean-Centroid']}}</td>
+                                            <td>{{data['mean-std-Centroid']}}</td>
+                                            <td>{{data['std-mean-Centroid']}}</td>
+                                            <td>{{data['std-std-Centroid']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="rolloff" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>mean-mean</th>
+                                            <th>mean-std</th>
+                                            <th>std-mean</th>
+                                            <th>std-std</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data['mean-mean-RollOff']}}</td>
+                                            <td>{{data['mean-std-RollOff']}}</td>
+                                            <td>{{data['std-mean-RollOff']}}</td>
+                                            <td>{{data['std-std-RollOff']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="flux" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>mean-mean</th>
+                                            <th>mean-std</th>
+                                            <th>std-mean</th>
+                                            <th>std-std</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data['mean-mean-Flux']}}</td>
+                                            <td>{{data['mean-std-Flux']}}</td>
+                                            <td>{{data['std-mean-Flux']}}</td>
+                                            <td>{{data['std-std-Flux']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="zero" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>mean-mean</th>
+                                            <th>mean-std</th>
+                                            <th>std-mean</th>
+                                            <th>std-std</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data['mean-mean-ZeroCrossings']}}</td>
+                                            <td>{{data['mean-std-ZeroCrossings']}}</td>
+                                            <td>{{data['std-mean-ZeroCrossings']}}</td>
+                                            <td>{{data['std-std-ZeroCrossings']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>MFCC (Coeficientes Cepstrales en las Frecuencias de Mel):</legend>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#coef1">Coeficiente 1</a></li>
+                        <li><a data-toggle="tab" href="#coef2">Coeficiente 2</a></li>
+                        <li><a data-toggle="tab" href="#coef3">Coeficiente 3</a></li>
+                        <li><a data-toggle="tab" href="#coef4">Coeficiente 4</a></li>
+                        <li><a data-toggle="tab" href="#coef5">Coeficiente 5</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="coef1" class="tab-pane fade in active">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>mean-mean</th>
+                                            <th>mean-std</th>
+                                            <th>std-mean</th>
+                                            <th>std-std</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data['mean-mean-coeficiente1']}}</td>
+                                            <td>{{data['mean-std-coeficiente1']}}</td>
+                                            <td>{{data['std-mean-coeficiente1']}}</td>
+                                            <td>{{data['std-std-coeficiente1']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="coef2" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>mean-mean</th>
+                                            <th>mean-std</th>
+                                            <th>std-mean</th>
+                                            <th>std-std</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data['mean-mean-coeficiente2']}}</td>
+                                            <td>{{data['mean-std-coeficiente2']}}</td>
+                                            <td>{{data['std-mean-coeficiente2']}}</td>
+                                            <td>{{data['std-std-coeficiente2']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="coef3" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>mean-mean</th>
+                                            <th>mean-std</th>
+                                            <th>std-mean</th>
+                                            <th>std-std</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data['mean-mean-coeficiente3']}}</td>
+                                            <td>{{data['mean-std-coeficiente3']}}</td>
+                                            <td>{{data['std-mean-coeficiente3']}}</td>
+                                            <td>{{data['std-std-coeficiente3']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="coef4" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>mean-mean</th>
+                                            <th>mean-std</th>
+                                            <th>std-mean</th>
+                                            <th>std-std</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data['mean-mean-coeficiente4']}}</td>
+                                            <td>{{data['mean-std-coeficiente4']}}</td>
+                                            <td>{{data['std-mean-coeficiente4']}}</td>
+                                            <td>{{data['std-std-coeficiente4']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="coef5" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>mean-mean</th>
+                                            <th>mean-std</th>
+                                            <th>std-mean</th>
+                                            <th>std-std</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data['mean-mean-coeficiente5']}}</td>
+                                            <td>{{data['mean-std-coeficiente5']}}</td>
+                                            <td>{{data['std-mean-coeficiente5']}}</td>
+                                            <td>{{data['std-std-coeficiente5']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-12 col-sm-12" style="text-align: center">
+                <a href="/" type="button" class="btn btn-primary btn-lg">
+                    <i class="fa fa-arrow-circle-left fa-lg"></i>
+                    Retornar
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

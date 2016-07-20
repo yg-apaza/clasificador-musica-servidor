@@ -72,9 +72,12 @@ def mostrarDatos(id):
     print id
     cur.execute("SELECT * FROM songs WHERE id=%s", (id,))
     rv = cur.fetchall()
+    data = common.loadDict(os.path.join(app.config['UPLOAD_FOLDER'],
+                           rv[0]['data']))
+    return render_template('cancion.html', song=rv[0], data=data)
 
-    return str(common.loadDict(os.path.join(app.config['UPLOAD_FOLDER'],
-                                            rv[0]['data'])))
+    # return str(common.loadDict(os.path.join(app.config['UPLOAD_FOLDER'],
+    #                                        rv[0]['data'])))
 
 
 def allowed_file(filename):
