@@ -36,35 +36,21 @@ pip install -r requirements.txt
 
 - Crear una base de datos 'clasificador' y ejecutar el script schema.sql
 
-- Modificar el archivo settings.json
+- Modificar el archivo settings.json (usuario y contraseña de la BD)
 
 - Copiar las librerias a la carpeta static
 ```bash
 gulp copy
 ```
 
-- Crear un enlace simbólico (symlink) de la carpeta 'data' en 'app/static/media'
-Linux:
-```bash
-ln -sf <ruta_absoluta_app/data> <ruta_absoluta_app/static/media>
-```
-Windows:
-```bash
-MKLINK /j <ruta_absoluta_app/data> <ruta_absoluta_app/static/media>
-```
-
 ## Ejecucion - Development
 
 - Ejecutar
 ```bash
-python wsgi.py
+python -m run
 ```
 
-- Abrir en un navegador localhost:8051
-
-## Sitio Web de prueba
-
-Disponible [aquí](http://clasificador-yga.rhcloud.com)
+- Abrir en un navegador localhost:9090
 
 ## Verificar
 
