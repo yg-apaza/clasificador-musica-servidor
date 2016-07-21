@@ -1,7 +1,5 @@
 # Clasificador de musica por género
 
-
-
 ## Requerimientos
 
 Deben estar definidos en el PATH del sistema
@@ -13,6 +11,7 @@ Deben estar definidos en el PATH del sistema
 ```bash
 sudo apt-get install libmysqlclient-dev
 sudo apt-get install -y libfreetype6-dev libxft-dev
+sudo apt-get install sox
 ```
 
 ## Instalacion
@@ -50,7 +49,7 @@ gulp copy
 python -m run
 ```
 
-- Abrir en un navegador localhost:9090
+- Abrir en un navegador localhost:8080
 
 ## Verificar
 

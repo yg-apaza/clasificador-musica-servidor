@@ -1,104 +1,71 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Clasificador de musica">
-    <meta name="author" content="UNSA">
-
-    <title>Clasificador de música</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="/static/vendor/bootstrap.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="/static/style.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="/static/vendor/font-awesome.css" rel="stylesheet" type="text/css">
-    <!-- jQuery -->
-    <script src="/static/vendor/jquery.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/static/vendor/bootstrap.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-    <div class="header col-md-12">
-        <div class="row">
-            <h1>CLASIFICADOR DE MÚSICA</h1>
-            <h4>Módulo de Entrenamiento</h4>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Algoritmo NEAT</div>
-                        <div class="panel-body">
-                            <a class="btn btn-success btn-lg btn-block" href="/entrenar" role="button">
-                                <i class="fa fa-flash fa-lg"></i>
-                                ENTRENAR
-                            </a>
-                            <h6 class="text-danger">ALERTA: Esta operación toma demasiado tiempo</h6>
-                        </div>
-                    </div>
-                    <!--div class="panel panel-default">
-                        <div class="panel-heading">Panel Header</div>
-                        <div class="panel-body">Panel Content</div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Panel Header</div>
-                        <div class="panel-body">Panel Content</div>
-                    </div-->
+{% extends "skeleton.html" %}
+{% block contenido %}
+<div class="row">
+    <div class="col-md-3 col-sm-12">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">Algoritmo NEAT</div>
+                <div class="panel-body">
+                    <a class="btn btn-success btn-lg btn-block" href="/entrenar" role="button">
+                        <i class="fa fa-flash fa-lg"></i>
+                        ENTRENAR
+                    </a>
+                    <h6 class="text-danger">ALERTA: Esta operación toma demasiado tiempo</h6>
                 </div>
             </div>
-            <div class="col-md-9 col-sm-12">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Audio</th>
-                                <th>Genero</th>
-                                <th>Ir</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for song in songs %}
-                            <tr>
-                                <td>{{ song['id'] }}</td>
-                                <td>{{ song['filename'] }}</td>
-                                <td>
-                                    <audio controls>
-                                        <source src="/static/media/{{song['filename']}}" type="audio/wav">Tu navegador no soporta elementos de audio
-                                    </audio>
-                                </td>
-                                <td>
-                                    {% if song['genre'] == 1 %}
-                                        Metal
-                                    {% elif song['genre'] == 2 %}
-                                        Clásica
-                                    {% elif song['genre'] == 3 %}
-                                        Pop
-                                    {% elif song['genre'] == 4 %}
-                                        Hip hop
-                                    {% else %}
-                                        Desconocido
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <a class="btn btn-default" href="/cancion/{{song['id']}}" role="button">Ver datos</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+            <!--div class="panel panel-default">
+                <div class="panel-heading">Panel Header</div>
+                <div class="panel-body">Panel Content</div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Panel Header</div>
+                <div class="panel-body">Panel Content</div>
+            </div-->
         </div>
     </div>
-</body>
-</html>
+    <div class="col-md-9 col-sm-12">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Audio</th>
+                        <th>Genero</th>
+                        <th>Ir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for song in songs %}
+                    <tr>
+                        <td>{{ song['id'] }}</td>
+                        <td>{{ song['filename'] }}</td>
+                        <td>
+                            <audio controls>
+                                <source src="/static/media/{{song['filename']}}" type="audio/wav">Tu navegador no soporta elementos de audio
+                            </audio>
+                        </td>
+                        <td>
+                            {% if song['genre'] == 1 %}
+                                ROock
+                            {% elif song['genre'] == 2 %}
+                                Clásica
+                            {% elif song['genre'] == 3 %}
+                                Cumbia
+                            {% elif song['genre'] == 4 %}
+                                Salsa
+                            {% else %}
+                                Desconocido
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="btn btn-default" href="/cancion/{{song['id']}}" role="button">Ver datos</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,47 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Clasificador de musica">
-    <meta name="author" content="UNSA">
-
-    <title>Clasificador de música</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="/static/vendor/bootstrap.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="/static/style.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="/static/vendor/font-awesome.css" rel="stylesheet" type="text/css">
-    <!-- jQuery -->
-    <script src="/static/vendor/jquery.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/static/vendor/bootstrap.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-    <div class="header col-md-12">
-        <div class="row">
-            <h1>CLASIFICADOR DE MÚSICA</h1>
-            <h4>Módulo de Entrenamiento</h4>
-        </div>
-    </div>
-    <div class="container">
-        <br>
-        <button type="button" class="btn btn-default btn-lg" id="iniciar">INICIAR</button>
-        <h6 class="text-danger">Se ejecutarán 300 generaciones</h6>
-        <br>
-        <div class="form-group">
-             <label for="comment">Resultados:</label>
-             <textarea class="form-control" rows="10" id="area" disabled></textarea>
-        </div>
-    </div>
-</body>
-</html>
+{% extends "skeleton.html" %}
+{% block contenido %}
+<br>
+<button type="button" class="btn btn-default btn-lg" id="iniciar">INICIAR</button>
+<h6 class="text-danger">Se ejecutarán 300 generaciones</h6>
+<br>
+<div class="form-group">
+     <label for="comment">Resultados:</label>
+     <textarea class="form-control" rows="10" id="area" disabled></textarea>
+</div>
 <script>
     jQuery(function($){
 
@@ -59,7 +25,7 @@
                 }});
             });
 
-            var host = "ws://localhost:9090/ws";
+            var host = "ws://localhost:5000/ws";
             var socket = new WebSocket(host);
 
             if(socket){
@@ -84,3 +50,4 @@
         }
     });
 </script>
+{% endblock %}

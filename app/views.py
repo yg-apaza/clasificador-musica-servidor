@@ -5,7 +5,8 @@ from app.audio.audioClass import Audio
 from app.audio import feature
 from app import common
 from app.train import NEAT
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect
+from flask import url_for, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 import threading
@@ -22,6 +23,7 @@ def daemon():
     NEAT.entrenar()
 
 d = threading.Thread(target=daemon, name='Daemon')
+
 
 @app.route('/entrenar', methods=['GET'])
 def entrenar():
@@ -99,3 +101,8 @@ def mostrarDatos(id):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+@app.route('/<path:path>')
+def send_static(path):
+    return send_from_directory('static', path)
