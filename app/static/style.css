@@ -34,7 +34,19 @@ h1, h2, h3, h4, h5, h6, p, table, a, div {
     margin-bottom: 2%;
 }
 
-.container
+.footer
 {
-    margin-bottom: 5%
+  background-color: black;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-top: 3%;
+}
+
+.footer p
+{
+    font-size: 80%;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    text-align: center;
+    color: white;
 }
