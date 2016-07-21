@@ -25,13 +25,13 @@ def daemon():
 d = threading.Thread(target=daemon, name='Daemon')
 
 
+@app.route('/verRed', methods=['GET'])
+def verRed():
+    return app.send_static_file('feedforward.svg')
+
+
 @app.route('/entrenar', methods=['GET'])
 def entrenar():
-    # NEAT.entrenar()
-    # winner = pickle.load(open(os.path.join(common.load('data_dir'),
-    #                                       'redNeuronal.p'), 'r'))
-    # return str(winner)
-    # NEAT.entrenar()
     return render_template('entrenamiento.html')
 
 

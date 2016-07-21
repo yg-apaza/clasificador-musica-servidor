@@ -1,5 +1,6 @@
 import os
 from neat import nn, population
+from app.train import visualize
 from app.dbconnect import conn
 from app import common
 import numpy as np
@@ -38,9 +39,16 @@ def entrenar():
     pop = population.Population(config_path)
     reporte = NEATReporter()
     pop.add_reporter(reporte)
-    pop.run(eval_fitness, 300)
+    pop.run(eval_fitness, 500)
 
+    stats = pop.statistics
     winner = pop.statistics.best_genome()
     pickle.dump(winner, open(os.path.join(common.load('data_dir'),
                              'redNeuronal.p'), 'w'))
+    pickle.dump(stats, open(os.path.join(common.load('data_dir'),
+                            'stats.p'), 'w'))
+    visualize.plot_stats(stats)
+    visualize.plot_species(stats)
+    visualize.draw_net(winner)
+
     return winner

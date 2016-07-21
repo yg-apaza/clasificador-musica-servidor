@@ -49,7 +49,7 @@ gulp copy
 python -m run
 ```
 
-- Abrir en un navegador localhost:8080
+- Abrir en un navegador localhost:5000
 
 ## Verificar
 

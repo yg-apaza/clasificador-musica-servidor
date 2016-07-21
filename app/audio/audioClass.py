@@ -10,10 +10,10 @@ class Audio:
         self.filename = archivo
         # convertir al formato estandar wav 22050Hz, 16 bits, 30 segs, mono
         # quitar ruido
-        song = AudioSegment.from_wav(archivo)
-        newb = song.high_pass_filter(500)
-        newa = newb.low_pass_filter(500)
-        newa.export(archivo, format="wav")
+        # song = AudioSegment.from_wav(archivo)
+        # newb = song.high_pass_filter(500)
+        # newa = newb.low_pass_filter(500)
+        # newa.export(archivo, format="wav")
 
         try:
             self.fs, self.data = wav.read(archivo)
