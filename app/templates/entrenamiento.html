@@ -1,16 +1,22 @@
 {% extends "skeleton.html" %}
 {% block contenido %}
 <br>
-<button type="button" class="btn btn-default btn-lg" id="iniciar">INICIAR</button>
-<h6 class="text-danger">Se ejecutarán 300 generaciones</h6>
+<button type="button" class="btn btn-success btn-lg" id="iniciar">INICIAR</button>
+<a href="/verResultados" role="button" class="btn btn-default btn-lg">Ver Resultados</a>
+<h6 class="text-danger">Se ejecutarán 500 generaciones</h6>
 <br>
 <div class="form-group">
      <label for="comment">Resultados:</label>
-     <textarea class="form-control" rows="10" id="area" disabled></textarea>
+     <textarea class="form-control" rows="16" id="area" disabled></textarea>
+</div>
+<div class="col-md-12 col-sm-12" style="text-align: center">
+    <a href="/" type="button" class="btn btn-primary btn-lg">
+        <i class="fa fa-arrow-circle-left fa-lg"></i>
+        Retornar
+    </a>
 </div>
 <script>
     jQuery(function($){
-
         if (!("WebSocket" in window)) {
             alert("EL navegador no soporta WebSockets");
         } else {

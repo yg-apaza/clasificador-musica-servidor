@@ -13,10 +13,10 @@ import threading
 
 
 cur = conn.cursor()
-ANALYSIS_WINDOW = 512   # Ventana de analisis de 512 muestras
+ANALYSIS_WINDOW = 512       # Ventana de analisis de 512 muestras
 HOPSIZE = 256
-TEXTURE_WINDOW = 86     # Nro de ventanas de analisis
-NRO_TEXTURE_WINDOWS = 2584
+TEXTURE_WINDOW = 86         # Nro de ventanas de analisis
+NRO_TEXTURE_WINDOWS = 2584  # 30 segundos aprox.
 
 
 def daemon():
@@ -25,9 +25,9 @@ def daemon():
 d = threading.Thread(target=daemon, name='Daemon')
 
 
-@app.route('/verRed', methods=['GET'])
+@app.route('/verResultados', methods=['GET'])
 def verRed():
-    return app.send_static_file('feedforward.svg')
+    return render_template('estadistica.html')
 
 
 @app.route('/entrenar', methods=['GET'])
@@ -87,15 +87,11 @@ def agregarPost():
 
 @app.route('/cancion/<id>')
 def mostrarDatos(id):
-    print id
     cur.execute("SELECT * FROM songs WHERE id=%s", (id,))
     rv = cur.fetchall()
     data = common.loadDict(os.path.join(app.config['UPLOAD_FOLDER'],
                            rv[0]['data']))
     return render_template('cancion.html', song=rv[0], data=data)
-
-    # return str(common.loadDict(os.path.join(app.config['UPLOAD_FOLDER'],
-    #                                        rv[0]['data'])))
 
 
 def allowed_file(filename):

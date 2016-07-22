@@ -1,4 +1,23 @@
 {% extends "skeleton.html" %}
 {% block contenido %}
-<img src="/redNeuronal.svg" />
+<div class="col-md-12">
+    <fieldset>
+        <legend><h2>Evolucion del fitness</h2></legend>
+        <br>
+        <img src="/results/evolucion.svg" />
+    </fieldset>
+</div>
+<div class="col-md-12" style="margin-top: 3%">
+    <fieldset>
+        <legend><h2>Gráfica de la red neuronal obtenida</h2></legend>
+        <br>
+        <img src="/results/redNeuronal.svg.svg" width=100%/>
+    </fieldset>
+</div>
+<div class="col-md-12 col-sm-12" style="text-align: center; margin-top: 3%">
+    <a href="/entrenar" type="button" class="btn btn-primary btn-lg">
+        <i class="fa fa-arrow-circle-left fa-lg"></i>
+        Retornar
+    </a>
+</div>
 {% endblock %}

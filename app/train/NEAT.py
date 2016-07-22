@@ -45,10 +45,8 @@ def entrenar():
     winner = pop.statistics.best_genome()
     pickle.dump(winner, open(os.path.join(common.load('data_dir'),
                              'redNeuronal.p'), 'w'))
-    pickle.dump(stats, open(os.path.join(common.load('data_dir'),
-                            'stats.p'), 'w'))
-    visualize.plot_stats(stats)
+    visualize.plot_stats(stats, filename="app/static/results/evolucion.svg")
     visualize.plot_species(stats)
-    visualize.draw_net(winner)
+    visualize.draw_net(winner, filename="app/static/results/redNeuronal.svg")
 
     return winner
